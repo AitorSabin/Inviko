@@ -52,10 +52,12 @@ public class Usuario {
     }
 
     public void eliminarGrupo(Grupo grupo) {
-        if (this.grupos != null) {
+        if (this.grupos != null && grupo != null && this.grupos.contains(grupo)) {
             this.grupos.remove(grupo);
+            grupo.getUsuarios().remove(this);
         }
     }
+
 
     public Long getId() {
         return id;

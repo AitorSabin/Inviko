@@ -79,9 +79,10 @@ public class GrupoController {
 
     @GetMapping("/grupo/{id}/borrar")
     public String borrarGrupo(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-
         try {
-            Grupo grupo = grupoService.findGrupoById(id).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
+
+            Grupo grupo = grupoService.findGrupoById(id)
+                    .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
 
             if (grupo.getUsuarios() != null && !grupo.getUsuarios().isEmpty()) {
                 for (Usuario usuario : grupo.getUsuarios()) {
@@ -99,6 +100,7 @@ public class GrupoController {
 
         return "redirect:/grupo";
     }
+
 
     @GetMapping("/{id}/asignarUsuario")
     public String asignarUsuario(@PathVariable Long id, Model model) {
