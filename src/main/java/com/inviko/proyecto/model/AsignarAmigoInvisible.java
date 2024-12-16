@@ -4,7 +4,6 @@ public class AsignarAmigoInvisible {
     private Usuario usuario;
     private Usuario amigoInvisible;
 
-    // Constructor, Getters and Setters
     public AsignarAmigoInvisible(Usuario usuario, Usuario amigoInvisible) {
         this.usuario = usuario;
         this.amigoInvisible = amigoInvisible;

@@ -39,7 +39,7 @@ public class Grupo {
     public void addUsuario(Usuario usuario) {
         if (usuario != null && !usuarios.contains(usuario)) {
             usuarios.add(usuario);
-            usuario.addGrupo(this); // Asocia este grupo con el usuario
+            usuario.addGrupo(this);
         }
     }
 

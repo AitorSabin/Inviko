@@ -47,10 +47,15 @@ public class Usuario {
     public void addGrupo(Grupo grupo) {
         if (grupo != null && !grupos.contains(grupo)) {
             grupos.add(grupo);
-            grupo.addUsuario(this); // Asociar el usuario con el grupo
+            grupo.addUsuario(this);
         }
     }
 
+    public void eliminarGrupo(Grupo grupo) {
+        if (this.grupos != null) {
+            this.grupos.remove(grupo);
+        }
+    }
 
     public Long getId() {
         return id;

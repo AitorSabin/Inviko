@@ -18,29 +18,27 @@ public class AmigoInvisibleService {
     }
 
     public List<AsignarAmigoInvisible> jugarAmigoInvisible(Long grupoId) {
+
         Grupo grupo = grupoRepository.findById(grupoId).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
-
         List<Usuario> usuariosDelGrupo = grupo.getUsuarios();
-
         if (usuariosDelGrupo.size() <= 1) {
             throw new RuntimeException("No hay suficientes usuarios en el grupo para jugar al Amigo Invisible.");
         }
-
         List<AsignarAmigoInvisible> asignaciones;
         boolean esValido;
-        do {
-            // Rebaraja la lista hasta encontrar una combinación válida
-            Collections.shuffle(usuariosDelGrupo);
 
+        do {
+            Collections.shuffle(usuariosDelGrupo);
             asignaciones = new ArrayList<>();
             esValido = true;
+
             for (int i = 0; i < usuariosDelGrupo.size(); i++) {
                 Usuario usuario = usuariosDelGrupo.get(i);
                 Usuario amigoInvisible = usuariosDelGrupo.get((i + 1) % usuariosDelGrupo.size());
 
                 if (usuario.equals(amigoInvisible)) {
                     esValido = false;
-                    break; // Rompe el bucle y vuelve a intentar
+                    break;
                 }
 
                 asignaciones.add(new AsignarAmigoInvisible(usuario, amigoInvisible));
@@ -49,6 +47,4 @@ public class AmigoInvisibleService {
 
         return asignaciones;
     }
-
-
 }
