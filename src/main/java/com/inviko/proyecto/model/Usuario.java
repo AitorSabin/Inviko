@@ -52,11 +52,11 @@ public class Usuario {
     }
 
     public void eliminarGrupo(Grupo grupo) {
-        if (this.grupos != null && grupo != null && this.grupos.contains(grupo)) {
-            this.grupos.remove(grupo);
-            grupo.getUsuarios().remove(this);
+        if (this.grupos != null) {
+            this.grupos.remove(grupo); // Elimina la relación sin eliminar el grupo de la base de datos
         }
     }
+
 
 
     public Long getId() {

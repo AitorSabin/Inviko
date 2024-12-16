@@ -80,26 +80,32 @@ public class GrupoController {
     @GetMapping("/grupo/{id}/borrar")
     public String borrarGrupo(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
-
+            // Buscar el grupo por ID
             Grupo grupo = grupoService.findGrupoById(id)
                     .orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
 
+            // Verificar si el grupo tiene usuarios asignados
             if (grupo.getUsuarios() != null && !grupo.getUsuarios().isEmpty()) {
                 for (Usuario usuario : grupo.getUsuarios()) {
-                    usuario.eliminarGrupo(grupo);
-                    usuarioService.saveUsuario(usuario);
+                    // Eliminar la relación entre el usuario y el grupo
+                    usuario.eliminarGrupo(grupo); // Esto elimina la relación en el lado del usuario
+                    usuarioService.saveUsuario(usuario); // Guardar usuario actualizado
                 }
             }
 
+            // Eliminar el grupo después de limpiar las relaciones
             grupoService.deleteGrupo(id);
 
+            // Mensaje de éxito
             redirectAttributes.addFlashAttribute("mensaje", "Grupo eliminado correctamente");
         } catch (RuntimeException e) {
+            // Manejo de error
             redirectAttributes.addFlashAttribute("error", "Error al eliminar el grupo: " + e.getMessage());
         }
 
-        return "redirect:/grupo";
+        return "redirect:/grupo"; // Redirigir a la lista de grupos
     }
+
 
 
     @GetMapping("/{id}/asignarUsuario")
